@@ -1,0 +1,9 @@
+-batch 
+-create my_timer 
+-ver 1.00.a 
+-dir "D:\RA31-2016\LPRS2\lab3" 
+-lang vhdl 
+-bus axi4lite s 
+-reg 4 
+-xps 
+-driver 
