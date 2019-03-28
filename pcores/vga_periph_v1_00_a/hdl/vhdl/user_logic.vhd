@@ -117,7 +117,10 @@ entity user_logic is
     Bus2IP_Clk                     : in  std_logic;
     Bus2IP_Resetn                  : in  std_logic;
     Bus2IP_Data                    : in  std_logic_vector(C_SLV_DWIDTH-1 downto 0);
+    Bus2IP_Addr                    : in  std_logic_vector(31 downto 0);
+    Bus2IP_RNW                     : in  std_logic;
     Bus2IP_BE                      : in  std_logic_vector(C_SLV_DWIDTH/8-1 downto 0);
+    Bus2IP_CS                      : in  std_logic;
     Bus2IP_RdCE                    : in  std_logic_vector(C_NUM_REG-1 downto 0);
     Bus2IP_WrCE                    : in  std_logic_vector(C_NUM_REG-1 downto 0);
     IP2Bus_Data                    : out std_logic_vector(C_SLV_DWIDTH-1 downto 0);
@@ -221,26 +224,41 @@ begin
   slv_read_ack      <= Bus2IP_RdCE(0);
 
   -- implement slave model software accessible register(s)
-  SLAVE_REG_WRITE_PROC : process( Bus2IP_Clk ) is
-  begin
-
-    if Bus2IP_Clk'event and Bus2IP_Clk = '1' then
-      if Bus2IP_Resetn = '0' then
-        slv_reg0 <= (others => '0');
-      else
-        case slv_reg_write_sel is
-          when "1" =>
-            for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
-              if ( Bus2IP_BE(byte_index) = '1' ) then
-                slv_reg0(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
-              end if;
-            end loop;
-          when others => null;
-        end case;
-      end if;
-    end if;
-
-  end process SLAVE_REG_WRITE_PROC;
+--	  SLAVE_REG_WRITE_PROC : process( Bus2IP_Clk ) is
+--	  begin
+--
+--		 if Bus2IP_Clk'event and Bus2IP_Clk = '1' then
+--			if Bus2IP_Resetn = '0' then
+--			  slv_reg0 <= (others => '0');
+--			else
+--			  case slv_reg_write_sel is
+--				 when "1" =>
+--					for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
+--					  if ( Bus2IP_BE(byte_index) = '1' ) then
+--						 slv_reg0(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
+--					  end if;
+--					end loop;
+--				 when others => null;
+--			  end case;
+--			end if;
+--		 end if;
+--
+--	  end process SLAVE_REG_WRITE_PROC;
+  
+	process( Bus2IP_Clk ) begin
+		if Bus2IP_Clk'event and Bus2IP_Clk = '1' then
+			if Bus2IP_Resetn = '0' then
+				slv_reg0 <= (others => '0');
+			else
+				if slv_reg_write_sel = "1" and Bus2IP_CS = '1' and Bus2IP_RNW = '0' then
+					case (Bus2IP_Addr) is
+						when x"00000000" => slv_reg0 <= Bus2IP_Data;
+						when others => null;
+					end case;
+				end if;
+			end if;
+		end if;
+	end process;
 
   -- implement slave model software accessible register(s) read mux
   SLAVE_REG_READ_PROC : process( slv_reg_read_sel, slv_reg0 ) is
