@@ -12,18 +12,17 @@
          <ClosedNode>/top - rtl D:|RA31-2016|LPRS2|lab3|pcores|vga_periph_v1_00_a|devl|projnav|top.vhd/vga_top_i - vga_top - rtl/char_rom_i - char_rom - Behavioral</ClosedNode>
          <ClosedNode>/top - rtl D:|RA31-2016|LPRS2|lab3|pcores|vga_periph_v1_00_a|devl|projnav|top.vhd/vga_top_i - vga_top - rtl/vga_i - vga - rtl</ClosedNode>
          <ClosedNode>/vga - rtl D:|RA31-2016|LPRS2|lab3|pcores|vga_periph_v1_00_a|devl|projnav|vga.vhd</ClosedNode>
-         <ClosedNode>/vga_periph - IMP D:|RA31-2016|LPRS2|lab3|pcores|vga_periph_v1_00_a|hdl|vhdl|vga_periph.vhd/AXI_LITE_IPIF_I - axi_lite_ipif - imp</ClosedNode>
-         <ClosedNode>/vga_periph - IMP D:|RA31-2016|LPRS2|lab3|pcores|vga_periph_v1_00_a|hdl|vhdl|vga_periph.vhd/USER_LOGIC_I - user_logic - IMP/Inst_top - top - rtl</ClosedNode>
+         <ClosedNode>/vga_periph - IMP D:|RA31-2016|LPRS2|lab3|pcores|vga_periph_v1_00_a|hdl|vhdl|vga_periph.vhd/AXI_LITE_IPIF_I - axi_lite_ipif - imp/I_SLAVE_ATTACHMENT - slave_attachment - imp</ClosedNode>
          <ClosedNode>/vga_top - rtl D:|RA31-2016|LPRS2|lab3|pcores|vga_periph_v1_00_a|devl|projnav|vga_top.vhd</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>vga_periph - IMP (D:/RA31-2016/LPRS2/lab3/pcores/vga_periph_v1_00_a/hdl/vhdl/vga_periph.vhd)</SelectedItem>
+         <SelectedItem>dcm50_i - dcm50MHz - xilinx (D:/RA31-2016/LPRS2/lab3/pcores/vga_periph_v1_00_a/hdl/vhdl/dcm50MHz.vhd)</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >6</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000163000000020000000000000000000000000200000064ffffffff000000810000000300000002000001630000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000221000000020000000000000000000000000200000064ffffffff000000810000000300000002000002210000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>vga_periph - IMP (D:/RA31-2016/LPRS2/lab3/pcores/vga_periph_v1_00_a/hdl/vhdl/vga_periph.vhd)</CurrentItem>
+      <CurrentItem>dcm50_i - dcm50MHz - xilinx (D:/RA31-2016/LPRS2/lab3/pcores/vga_periph_v1_00_a/hdl/vhdl/dcm50MHz.vhd)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="DESUT_VHDL_ARCHITECTURE" guiview="Process" >
       <ClosedNodes>
@@ -34,13 +33,13 @@
          <ClosedNode>User Constraints</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>Generate Programming File</SelectedItem>
+         <SelectedItem>Design Utilities</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001b8000000010000000100000000000000000000000064ffffffff000000810000000000000001000001b80000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>Generate Programming File</CurrentItem>
+      <CurrentItem>Design Utilities</CurrentItem>
    </ItemView>
    <ItemView guiview="File" >
       <ClosedNodes>
@@ -74,13 +73,13 @@
          <ClosedNode>Design Utilities</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem></SelectedItem>
+         <SelectedItem/>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000000000000000001b8000000010000000100000000000000000000000064ffffffff000000810000000000000001000001b80000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem></CurrentItem>
+      <CurrentItem/>
    </ItemView>
    <SourceProcessView>000000ff00000000000000020000011b0000011b01000000050100000002</SourceProcessView>
    <CurrentView>Implementation</CurrentView>

@@ -18,18 +18,18 @@
  PORT DIP_Switches_TRI_I = DIP_Switches_TRI_I, DIR = I, VEC = [0:7]
  PORT CLK_P = CLK, DIR = I, DIFFERENTIAL_POLARITY = P, SIGIS = CLK, CLK_FREQ = 50000000
  PORT CLK_N = CLK, DIR = I, DIFFERENTIAL_POLARITY = N, SIGIS = CLK, CLK_FREQ = 50000000
- PORT vga_periph_0_clk_i_pin = net_vga_periph_0_clk_i_pin, DIR = I
+ PORT vga_periph_0_clk_i_pin = net_vga_periph_0_clk_i_pin, DIR = I, SIGIS = CLK
  PORT vga_periph_0_reset_n_i_pin = vga_periph_0_reset_n_i, DIR = I, SIGIS = RST
  PORT vga_periph_0_direct_mode_i_pin = vga_periph_0_direct_mode_i, DIR = I
- PORT vga_periph_0_vga_vsync_o_pin = vga_periph_0_vga_vsync_o, DIR = O
- PORT vga_periph_0_blank_o_pin = vga_periph_0_blank_o, DIR = O
- PORT vga_periph_0_vga_hsync_o_pin = vga_periph_0_vga_hsync_o, DIR = O
- PORT vga_periph_0_pix_clock_o_pin = vga_periph_0_pix_clock_o, DIR = O
- PORT vga_periph_0_psave_o_pin = vga_periph_0_psave_o, DIR = O
- PORT vga_periph_0_sync_o_pin = vga_periph_0_sync_o, DIR = O
- PORT vga_periph_0_red_o_pin = vga_periph_0_red_o, DIR = O, VEC = [7:0]
- PORT vga_periph_0_green_o_pin = vga_periph_0_green_o, DIR = O, VEC = [7:0]
- PORT vga_periph_0_blue_o_pin = vga_periph_0_blue_o, DIR = O, VEC = [7:0]
+ PORT vga_periph_0_vga_vsync_o_pin = vga_periph_0_vga_vsync_o_0, DIR = O
+ PORT vga_periph_0_blank_o_pin = vga_periph_0_blank_o_0, DIR = O
+ PORT vga_periph_0_vga_hsync_o_pin = vga_periph_0_vga_hsync_o_0, DIR = O
+ PORT vga_periph_0_pix_clock_o_pin = vga_periph_0_pix_clock_o_0, DIR = O
+ PORT vga_periph_0_psave_o_pin = vga_periph_0_psave_o_0, DIR = O
+ PORT vga_periph_0_sync_o_pin = vga_periph_0_sync_o_0, DIR = O
+ PORT vga_periph_0_red_o_pin = vga_periph_0_red_o_0, DIR = O, VEC = [7:0]
+ PORT vga_periph_0_green_o_pin = vga_periph_0_green_o_0, DIR = O, VEC = [7:0]
+ PORT vga_periph_0_blue_o_pin = vga_periph_0_blue_o_0, DIR = O, VEC = [7:0]
  PORT vga_periph_0_display_mode_i_pin = vga_periph_0_display_mode_i, DIR = I, VEC = [1:0]
 
 
@@ -214,15 +214,15 @@ BEGIN vga_periph
  PORT clk_i = net_vga_periph_0_clk_i_pin
  PORT reset_n_i = vga_periph_0_reset_n_i
  PORT direct_mode_i = vga_periph_0_direct_mode_i
- PORT vga_vsync_o = vga_periph_0_vga_vsync_o
- PORT blank_o = vga_periph_0_blank_o
- PORT vga_hsync_o = vga_periph_0_vga_hsync_o
- PORT pix_clock_o = vga_periph_0_pix_clock_o
- PORT psave_o = vga_periph_0_psave_o
- PORT sync_o = vga_periph_0_sync_o
- PORT red_o = vga_periph_0_red_o
- PORT green_o = vga_periph_0_green_o
- PORT blue_o = vga_periph_0_blue_o
  PORT display_mode_i = vga_periph_0_display_mode_i
+ PORT vga_hsync_o = vga_periph_0_vga_hsync_o_0
+ PORT vga_vsync_o = vga_periph_0_vga_vsync_o_0
+ PORT blank_o = vga_periph_0_blank_o_0
+ PORT pix_clock_o = vga_periph_0_pix_clock_o_0
+ PORT psave_o = vga_periph_0_psave_o_0
+ PORT sync_o = vga_periph_0_sync_o_0
+ PORT red_o = vga_periph_0_red_o_0
+ PORT green_o = vga_periph_0_green_o_0
+ PORT blue_o = vga_periph_0_blue_o_0
 END
 
