@@ -30,6 +30,12 @@ entity text_mem is
     rd_data_o : out std_logic_vector(MEM_DATA_WIDTH-1 downto 0)      -- read data output
     );
 end entity;
+--
+--TEXT_MEM je potrebno izmeniti kako bi napravili dvopristupnu memoriju sa sinhronim èitanjem i
+--nezavisnim taktovima (eng: dual-port RAM with synchronous read (read through) and two clocks) koja
+--omoguæuje sinhrono èitanje i pisanje na razlièitim takt domenima tj. da se piše sa AXI magistrale (na
+--AXI takt domenu) a èita iz VGA_TOP modula (na vga takt domenu). Memorija sadrži adrese karaktera
+--iz char_rom-a koji se ispisuju na ekranu.
 
 architecture arc_text_mem of text_mem is
 

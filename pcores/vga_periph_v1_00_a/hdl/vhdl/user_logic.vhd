@@ -162,6 +162,12 @@ architecture IMP of user_logic is
 		foreground_color_i : in std_logic_vector(23 downto 0);
 		background_color_i : in std_logic_vector(23 downto 0);
 		frame_color_i      : in std_logic_vector(23 downto 0);
+		text_addr_i         : in  std_logic_vector(13 downto 0);
+		text_data_i         : in  std_logic_vector(5 downto 0);
+		text_we_i           : in  std_logic;
+		graph_addr_i        : in  std_logic_vector(19 downto 0);
+		graph_data_i        : in  std_logic_vector(31 downto 0);
+		graph_we_i          : in  std_logic;
 		 -- vga
 		 vga_hsync_o    : out std_logic;
 		 vga_vsync_o    : out std_logic;
@@ -215,6 +221,13 @@ begin
 		foreground_color_i => reg_foreground_color,
 		background_color_i => reg_background_color,
 		frame_color_i => reg_frame_color,
+		text_addr_i => Bus2IP_Addr(13 downto 0),
+		text_data_i => Bus2IP_Data(5 downto 0),
+		text_we_i => text_we,
+		graph_addr_i => Bus2IP_Addr(19 downto 0),
+		graph_data_i => Bus2IP_Data,
+		graph_we_i => graph_we,
+		
 		vga_hsync_o => vga_hsync_o,
 		vga_vsync_o => vga_vsync_o,
 		blank_o => blank_o,

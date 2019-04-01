@@ -30,6 +30,12 @@ entity top is
  	foreground_color_i : in std_logic_vector(23 downto 0);
  	background_color_i : in std_logic_vector(23 downto 0);
  	frame_color_i      : in std_logic_vector(23 downto 0);
+	text_addr_i         : in  std_logic_vector(13 downto 0);
+	text_data_i         : in  std_logic_vector(5 downto 0);
+	text_we_i           : in  std_logic;
+	graph_addr_i        : in  std_logic_vector(19 downto 0);
+	graph_data_i        : in  std_logic_vector(31 downto 0);
+	graph_we_i          : in  std_logic;
     -- vga
     vga_hsync_o    : out std_logic;
     vga_vsync_o    : out std_logic;
@@ -255,13 +261,13 @@ begin
     -- cfg
     display_mode_i     => display_mode,  -- 01 - text mode, 10 - graphics mode, 11 - text & graphics
     -- text mode interface
-    text_addr_i        => char_address,
-    text_data_i        => char_value,
-    text_we_i          => char_we,
+    text_addr_i        => text_addr_i,
+    text_data_i        => text_data_i,
+    text_we_i          => text_we_i,
     -- graphics mode interface
-    graph_addr_i       => pixel_address,
-    graph_data_i       => pixel_value,
-    graph_we_i         => pixel_we,
+    graph_addr_i       => graph_addr_i,
+    graph_data_i       => graph_data_i,
+    graph_we_i         => graph_we_i,
     -- cfg
     font_size_i        => font_size,
     show_frame_i       => show_frame,
