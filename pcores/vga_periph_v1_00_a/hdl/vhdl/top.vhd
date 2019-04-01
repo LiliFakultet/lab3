@@ -21,10 +21,15 @@ entity top is
     GRAPH_MEM_DATA_WIDTH : natural := 32
     );
   port (
-    clk_i          : in  std_logic;
-    reset_n_i      : in  std_logic;
-	 direct_mode_i  : in  std_logic;       -----------------------------------------------------------------------------------
-	 display_mode_i : in  std_logic_vector(1 downto 0);  ---------------------------------------------------------------------
+	clk_i              : in std_logic;
+	reset_n_i          : in std_logic;
+	direct_mode_i      : in std_logic;
+	display_mode_i     : in std_logic_vector(1 downto 0);   
+	show_frame_i       : in std_logic;
+	font_size_i        : in std_logic_vector(3 downto 0);
+ 	foreground_color_i : in std_logic_vector(23 downto 0);
+ 	background_color_i : in std_logic_vector(23 downto 0);
+ 	frame_color_i      : in std_logic_vector(23 downto 0);
     -- vga
     vga_hsync_o    : out std_logic;
     vga_vsync_o    : out std_logic;
@@ -199,15 +204,13 @@ begin
   
   graphics_lenght <= conv_std_logic_vector(MEM_SIZE*8*8, GRAPH_MEM_ADDR_WIDTH);
   
-  -- removed to inputs pin
-  direct_mode <= direct_mode_i;
+  direct_mode      <= direct_mode_i;
   display_mode     <= display_mode_i;  -- 01 - text mode, 10 - graphics mode, 11 - text & graphics
-  
-  font_size        <= x"1";
-  show_frame       <= '1';
-  foreground_color <= x"FFFFFF";
-  background_color <= x"000000";
-  frame_color      <= x"FF0000";
+  font_size        <= font_size_i;
+  show_frame       <= show_frame_i;
+  foreground_color <= foreground_color_i;
+  background_color <= background_color_i;
+  frame_color      <= frame_color_i;
 
   clk5m_inst : ODDR2
   generic map(

@@ -153,10 +153,15 @@ architecture IMP of user_logic is
 		 GRAPH_MEM_DATA_WIDTH : natural := 32
 		 );
 	  port (
-		 clk_i          : in  std_logic;
-		 reset_n_i      : in  std_logic;
-		 direct_mode_i  : in  std_logic;
-		 display_mode_i : in  std_logic_vector(1 downto 0);
+		clk_i              : in std_logic;
+		reset_n_i          : in std_logic;
+		direct_mode_i      : in std_logic;
+		display_mode_i     : in std_logic_vector(1 downto 0);   
+		show_frame_i       : in std_logic;
+		font_size_i        : in std_logic_vector(3 downto 0);
+		foreground_color_i : in std_logic_vector(23 downto 0);
+		background_color_i : in std_logic_vector(23 downto 0);
+		frame_color_i      : in std_logic_vector(23 downto 0);
 		 -- vga
 		 vga_hsync_o    : out std_logic;
 		 vga_vsync_o    : out std_logic;
@@ -179,6 +184,22 @@ architecture IMP of user_logic is
   signal slv_ip2bus_data                : std_logic_vector(C_SLV_DWIDTH-1 downto 0);
   signal slv_read_ack                   : std_logic;
   signal slv_write_ack                  : std_logic;
+  
+  signal reg_direct_mode : std_logic;
+  signal reg_display_mode : std_logic_vector(1 downto 0);
+  signal reg_show_frame : std_logic;
+  signal reg_font_size : std_logic_vector(3 downto 0);
+  signal reg_foreground_color : std_logic_vector(23 downto 0);
+  signal reg_background_color : std_logic_vector(23 downto 0);
+  signal reg_frame_color : std_logic_vector(23 downto 0);
+  -- TODO: ostali
+  
+  signal unit_addr : std_logic_vector(21 downto 0);
+  signal unit_id : std_logic_vector(1 downto 0);
+  signal global_we : std_logic;
+  signal reg_we : std_logic;
+  signal text_we : std_logic;
+  signal graph_we : std_logic;
 
 begin
 
@@ -187,8 +208,13 @@ begin
   Inst_top: top PORT MAP(
 		clk_i => clk_i,
 		reset_n_i => reset_n_i,
-		direct_mode_i => direct_mode_i,
-		display_mode_i => display_mode_i,
+		direct_mode_i => reg_direct_mode,
+		display_mode_i => reg_display_mode,
+		show_frame_i => reg_show_frame,
+		font_size_i => reg_font_size,
+		foreground_color_i => reg_foreground_color,
+		background_color_i => reg_background_color,
+		frame_color_i => reg_frame_color,
 		vga_hsync_o => vga_hsync_o,
 		vga_vsync_o => vga_vsync_o,
 		blank_o => blank_o,
@@ -224,35 +250,35 @@ begin
   slv_read_ack      <= Bus2IP_RdCE(0);
 
   -- implement slave model software accessible register(s)
---	  SLAVE_REG_WRITE_PROC : process( Bus2IP_Clk ) is
---	  begin
---
---		 if Bus2IP_Clk'event and Bus2IP_Clk = '1' then
---			if Bus2IP_Resetn = '0' then
---			  slv_reg0 <= (others => '0');
---			else
---			  case slv_reg_write_sel is
---				 when "1" =>
---					for byte_index in 0 to (C_SLV_DWIDTH/8)-1 loop
---					  if ( Bus2IP_BE(byte_index) = '1' ) then
---						 slv_reg0(byte_index*8+7 downto byte_index*8) <= Bus2IP_Data(byte_index*8+7 downto byte_index*8);
---					  end if;
---					end loop;
---				 when others => null;
---			  end case;
---			end if;
---		 end if;
---
---	  end process SLAVE_REG_WRITE_PROC;
   
-	process( Bus2IP_Clk ) begin
-		if Bus2IP_Clk'event and Bus2IP_Clk = '1' then
+	unit_addr <= Bus2IP_Addr(23 downto 2);
+	unit_id <= Bus2IP_Addr(25 downto 24);
+	
+	global_we <= '1' when (Bus2IP_CS = '1' and Bus2IP_RNW = '0') else '0';
+	reg_we <= '1' when (global_we = '1' and unit_id = "00") else '0';
+	text_we <= '1' when (global_we = '1' and unit_id = "01") else '0';
+	graph_we <= '1' when (global_we = '1' and unit_id = "10") else '0';
+	
+	process (Bus2IP_Clk) begin
+		if rising_edge(Bus2IP_Clk) then
 			if Bus2IP_Resetn = '0' then
-				slv_reg0 <= (others => '0');
+				reg_direct_mode      <= '0';
+				reg_display_mode     <= (others => '0');  
+				reg_show_frame       <= '0';
+				reg_font_size        <= (others => '0');  
+				reg_foreground_color <= (others => '0');  
+				reg_background_color <= (others => '0');  
+				reg_frame_color      <= (others => '0');  
 			else
-				if slv_reg_write_sel = "1" and Bus2IP_CS = '1' and Bus2IP_RNW = '0' then
-					case (Bus2IP_Addr) is
-						when x"00000000" => slv_reg0 <= Bus2IP_Data;
+				if reg_we = '1' then
+					case Bus2IP_Addr is
+						when x"00000000" => reg_direct_mode      <= Bus2IP_Data(0);
+						when x"00000001" => reg_display_mode     <= Bus2IP_Data(1 downto 0);
+						when x"00000002" => reg_show_frame       <= Bus2IP_Data(0);
+						when x"00000003" => reg_font_size        <= Bus2IP_Data(3 downto 0);
+						when x"00000004" => reg_foreground_color <= Bus2IP_Data(23 downto 0);  
+						when x"00000005" => reg_background_color <= Bus2IP_Data(23 downto 0);  
+						when x"00000006" => reg_frame_color      <= Bus2IP_Data(23 downto 0); 
 						when others => null;
 					end case;
 				end if;
